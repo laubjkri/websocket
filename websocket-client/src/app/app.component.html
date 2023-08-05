@@ -1,0 +1,48 @@
+<div class="login-state" [ngSwitch]="currentUser === undefined">
+  <ng-container *ngSwitchCase="true">
+    <mat-form-field>
+      <!-- #username is a reference to this input field -->
+      <input #username matInput placeholder="Whats your name?">
+    </mat-form-field>
+    <button (click)="connect(username)" mat-raised-button color="primary">Connect</button>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="false">
+    <h3> Logged in as: {{currentUser?.name}}</h3>
+  </ng-container>
+</div>
+
+<!-- Show connected users -->
+<div class="user-list">
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let user of users" [class.current-user]="user.id === currentUser?.id">
+      {{user.name}} #{{user.id}}
+    </mat-list-item>
+  </mat-list>
+</div>
+
+<!-- Show all chat messages -->
+<div class="chat-area">
+  <!-- Using a material UI "card" to show each message -->
+  <mat-card *ngFor="let message of messages" [class.current-user]="message.author.id === currentUser?.id">
+    <p>{{message.author.name}}</p>
+    <pre>{{message.contents}}</pre>
+  </mat-card>
+</div>
+
+<!-- Show input field -->
+<div class="chat-input">
+  <mat-form-field appearance="outline">    
+    <input #chatInput matInput placeholder="Whats on your mind?" (keyup.enter)="send(chatInput)">
+  </mat-form-field>
+</div>
+
+<!-- Show system notices -->
+<div class="system-notice-area">
+  <div class="system-notices" *ngFor="let notice of systemNotices">
+    <pre>System notice: {{notice.contents}}</pre>
+  </div>
+</div>
+
+
+

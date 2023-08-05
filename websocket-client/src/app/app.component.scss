@@ -1,0 +1,75 @@
+// Host will style the entire component
+// It is a term from Web Components and it references the shadow host element.
+:host {
+    display: grid;
+
+    // Name the grid areas with the grid template property
+    // these can be referenced elsewhere in scss
+    grid-template-areas:
+        "header     login-state"
+        "user-list  chat-area"
+        "user-list  chat-input"
+        "user-list  system-notice-area";
+
+    // Here the two colums get fractions of all the space.
+    // The left column get 1 fraction and the right column gets 3 fractions
+    grid-template-columns: 1fr 3fr;
+
+    // Gap between the columns and rows
+    gap: 20px;
+}
+
+// Putting the classes into the grid
+.login-state {
+    grid-area: login-state;
+    display: flex;
+    align-items: center;
+    > * {
+        margin: 16px;
+    }
+}
+
+.header {
+    grid-area: header;
+}
+
+.user-list {
+    grid-area: user-list;
+    max-width: 150px;
+    padding: 15px;
+
+    // Highligt the current user in the user list
+    mat-list-item.current-user {
+        background-color: beige;
+    }
+}
+
+.chat-area {
+    grid-area: chat-area;
+
+    mat-card {
+        max-width: 400px;
+        margin-bottom: 15px;    
+
+        // Highlight chat messages from current user        
+        &.current-user {
+            background-color: beige;
+        }
+    }
+}
+
+.chat-input {
+    grid-area: chat-input;
+    mat-form-field {
+        display: block;
+        max-width: 400px;
+    }
+}
+
+.system-notice-area {
+    grid-area: system-notice-area;
+}
+
+h3 {
+    font-weight: bold;
+}
