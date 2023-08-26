@@ -11,7 +11,7 @@ export class AppService {
     // the $ naming convention is used to indicate an event emitting variable
     // The subject classes are coming from the rxjs library.
 
-    user$ = new BehaviorSubject<User | undefined>(undefined); 
+    user$ = new BehaviorSubject<User | undefined>(undefined);  // The BehaviorSubject emits the last event on new subscribers
     socket?: WebSocketSubject<WsMessage>;
     chatMessage$ = new Subject<ChatRelayMessage>();
     systemNotice$ = new Subject<SystemNotice>();
@@ -19,7 +19,7 @@ export class AppService {
 
     connect(name: string) {
         this.socket = webSocket(`ws://localhost:8080?name=${name}`);
-        this.socket.subscribe(user => this.onMessageFromServer(user));        
+        this.socket.subscribe(message => this.onMessageFromServer(message));        
     }
 
     send(contents: string) {
